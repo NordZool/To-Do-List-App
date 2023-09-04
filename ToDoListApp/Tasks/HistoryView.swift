@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct HistoryView: View {
-    @Binding var histTasks: [Task]
     @Environment (\.dismiss) var dismiss
+    @EnvironmentObject var settings: GlobalSettings
+    @Binding var histTasks: [Task]
+   
     var selected: Int?
     var body: some View {
         VStack {
@@ -42,6 +44,7 @@ maybe you were looking forthe history
             }
             Spacer()
         }
+        .preferredColorScheme(settings.theme)
     }
 }
 

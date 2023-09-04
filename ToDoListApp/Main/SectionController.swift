@@ -1,7 +1,7 @@
 import SwiftUI
 
 class SectionController : ObservableObject {
-    @Published var chosenSection = 0 {
+    @Published var chosenSection:Int? = nil {
         didSet {
             UserDefaults.standard.set(chosenSection, forKey: "ChosenSection")
         }
@@ -21,7 +21,7 @@ class SectionController : ObservableObject {
     
     init() {
 //        chosenSection = UserDefaults.standard.integer(forKey: "ChosenSection")
-        chosenSection = 0 //временно
+        chosenSection = nil //временно
         lastIcon = UserDefaults.standard.string(forKey: "LastIcon") ?? SingletonAssets.time_im[0]
         
         if let lastColor = UserDefaults.standard.data(forKey: "LastColor") {

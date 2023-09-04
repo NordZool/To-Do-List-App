@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8486447D2AA33019005EE34C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486447C2AA33019005EE34C /* SettingsView.swift */; };
+		8486447F2AA3311E005EE34C /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486447E2AA3311E005EE34C /* GlobalSettings.swift */; };
 		84AB20DC2A8D112E00E2E0CE /* ToDoListAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB20DB2A8D112E00E2E0CE /* ToDoListAppApp.swift */; };
 		84AB20DE2A8D112E00E2E0CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB20DD2A8D112E00E2E0CE /* ContentView.swift */; };
 		84AB20E02A8D113000E2E0CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AB20DF2A8D113000E2E0CE /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8486447C2AA33019005EE34C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8486447E2AA3311E005EE34C /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
 		84AB20D82A8D112E00E2E0CE /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AB20DB2A8D112E00E2E0CE /* ToDoListAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListAppApp.swift; sourceTree = "<group>"; };
 		84AB20DD2A8D112E00E2E0CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				84AB211B2A8D151800E2E0CE /* LocalSectionSettings.swift */,
+				8486447C2AA33019005EE34C /* SettingsView.swift */,
+				8486447E2AA3311E005EE34C /* GlobalSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -216,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8486447F2AA3311E005EE34C /* GlobalSettings.swift in Sources */,
 				84AB210E2A8D140B00E2E0CE /* Section.swift in Sources */,
 				84AB21002A8D138300E2E0CE /* ViewController.swift in Sources */,
 				84AB20DE2A8D112E00E2E0CE /* ContentView.swift in Sources */,
@@ -225,6 +232,7 @@
 				84AB21132A8D149A00E2E0CE /* HistoryView.swift in Sources */,
 				84AB21152A8D14B500E2E0CE /* SingletonAssets.swift in Sources */,
 				84AB21052A8D13C000E2E0CE /* SectionsView.swift in Sources */,
+				8486447D2AA33019005EE34C /* SettingsView.swift in Sources */,
 				84AB211C2A8D151800E2E0CE /* LocalSectionSettings.swift in Sources */,
 				84AB21172A8D14BF00E2E0CE /* Task.swift in Sources */,
 				84AB21022A8D139C00E2E0CE /* SectionController.swift in Sources */,

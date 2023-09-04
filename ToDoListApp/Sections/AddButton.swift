@@ -34,6 +34,7 @@ struct AddButton: View {
                 .clipShape(Circle())
             })
             .scaleEffect(hide ? 0 : 1)
+            .opacity(hide ? 0 : 1)
                             .animation(.spring(), value: hide)
             
             

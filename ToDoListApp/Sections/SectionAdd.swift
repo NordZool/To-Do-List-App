@@ -11,12 +11,15 @@ import Combine
     
 struct SectionAdd: View {
     @Environment (\.dismiss) private var dismiss
+    @EnvironmentObject var settings: GlobalSettings
     
     var sections: Sections
     @Binding var localColor: LocalColor
     @Binding var localLable: String // мб байндинг
     @State private var sectionName = ""
-    let textLimit = 20
+    let textLimit = 34 // поменять
+    
+    @State private var emptyError = false
     
 //    @ObservedObject var sectionController: SectionController
     
@@ -35,8 +38,8 @@ struct SectionAdd: View {
                 }
                 .edgesIgnoringSafeArea(.all)
                 .blur(radius: 4)
-                .opacity(0.7)// при dark = 1, при light = 0.7
-                //убрать lineLimit + при dark - блэк на white менять и наобород
+                .opacity(settings.theme == .dark ? 1 : 0.7)// при dark = 1, при light = 0.7
+                //убрать lineLimit + при dark - блэк на white менять и наобород del
             VStack(spacing: -20) {
                 ZStack {
                     
@@ -62,21 +65,38 @@ struct SectionAdd: View {
                                         .foregroundColor(.gray)
                                         .offset(x:3,y:12)
                                 }
-                                VStack {
                                     
                                     TextEditor(text: $sectionName)
                                     
                                     //                    .frame(height: 100)
                                     //                    .background(.gray)
                                         .scrollContentBackground(.hidden)
+                                        .onChange(of: sectionName) {_ in
+                                            emptyError = false
+                                        }
                                         .padding(0)
-                                    
-                                }
-                                
                             }
-                            Rectangle()
-                                .frame(width: 293, height:1)
-                                .padding(.top, -70 + CGFloat(sectionName.filter({$0 == "\n"}).count * 22))
+                            VStack {
+                                Rectangle()
+                                    .frame(width: 293, height:1)
+                                    .padding(.top, -60 + CGFloat(sectionName.filter({$0 == "\n"}).count * 22))
+                                HStack {
+                                    Spacer()
+                                    if sectionName.count == 34 {
+                                        Text("You can only use \(textLimit) sumbols")
+                                            .foregroundColor(.yellow)
+                                            .padding(.top, -67 + CGFloat(sectionName.filter({$0 == "\n"}).count * 22))
+                                            .font(.footnote)
+                                    }
+                                    if emptyError {
+                                        Text("Fill the field")
+                                            .foregroundColor(.red)
+                                            .padding(.top, -67 + CGFloat(sectionName.filter({$0 == "\n"}).count * 22))
+                                            .font(.footnote)
+                                    }
+                                }
+                            }
+                          
                             
                         }
                         .frame(width: 300,height: 100)
@@ -112,9 +132,13 @@ struct SectionAdd: View {
                                     
                                     ForEach(LocalColor.allCases, id: \.self) {color in
                                         Button {
-                                            localColor = color
+                                                localColor = color
                                         } label: {
-                                            Text(color.rawValue)
+                                            if color != .black {
+                                                Text(color.rawValue)
+                                            } else {
+                                                Text(settings.theme == .dark ? "white" : "black")
+                                            }
                                         }
                                     }
                                 } label: {
@@ -145,19 +169,25 @@ struct SectionAdd: View {
                             .background(.gray)
                             .cornerRadius(30)
                             .padding(2)
-                            .background(localColor.locolToColor().opacity(0.7).blur(radius: 2)) // в дарк = 1
+                            .background(localColor.locolToColor().opacity(settings.theme == .dark ? 1 : 0.7).blur(radius: 2)) // в дарк = 1
                             .cornerRadius(30)
                             .scaleEffect(1.7)
                     }
                     
                     
                     Button {
-                        let newSection = TaskSection(
-                            imageLable: localLable,
-                            name: sectionName,
-                            sectionStyle: localColor)
-                        sections.section.append(newSection)
-                        dismiss.callAsFunction()
+                        if sectionName.isEmpty || sectionName.allSatisfy({$0 == " " || $0 == "\n"}) {
+                            emptyError = true
+                        } else {
+                            let newSection = TaskSection(
+                                imageLable: localLable,
+                                name: sectionName,
+                                sectionStyle: localColor)
+                            sections.section.append(newSection)
+                            sections.tasks.append([])
+                            sections.historyTasks.append([])
+                            dismiss.callAsFunction()
+                        }
                     } label: {
                         Text("Save")
                             .foregroundColor(Color("StandartColorB"))
@@ -175,6 +205,7 @@ struct SectionAdd: View {
                 .padding(.top, -20)
             }
         }
+        .preferredColorScheme(settings.theme)
     }
         
     
