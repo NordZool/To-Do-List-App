@@ -35,17 +35,20 @@ struct ContentView: View {
 //                    .tabItem {
 //                        Image(systemName: "2.circle")
 //                    }
-                    
+                    SettingsView(name: $sections.section[selectionIndex].name, icon: $sections.section[selectionIndex].imageLable, color: $sections.section[selectionIndex].sectionStyle)
+                        .tag(Present.settingsView)
                 } else {
-                    Text("Not found any section")
+                    
+                    Text("You have not selected a task list")
                         .tag(Present.tasksView)
+                    StartSettingsView()
+                        .tag(Present.settingsView)
 //                        .tabItem {
 //                            Image(systemName: "2.circle")
 //                        }
                 }
                 
-                SettingsView()
-                    .tag(Present.settingsView)
+               
                 
                 
             }

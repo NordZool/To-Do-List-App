@@ -140,6 +140,7 @@ struct TasksView : View {
                     
 
                     ForEach(tasks) {task in
+                        
                         HStack(alignment:.top) {
                             VStack(alignment:.leading) {
                                 Text(task.name)
@@ -148,19 +149,24 @@ struct TasksView : View {
                                     .font(.footnote)
                                     .foregroundColor(Color.gray)
                                     .offset(y:21)
-                                
-                                
                             }
-                            
+                            .contextMenu {
+                                    Button(role: .destructive) {
+                                        let index = tasks.firstIndex(where: {$0.id == task.id})!
+                                        tasks.remove(at: index)
+                                    } label: {
+                                        HStack {
+                                            Text("Delete")
+                                            Image(systemName:"trash")
+                                        }
+                                    }
+                                }
                             Spacer()
                             HStack(spacing:25) {
-                                
                                 Button {
                                     var task = task
                                     task.done = true
                                     task.doneTime = timeNow()
-                                    
-//                                    let createTime = task.createTime
                                     task.createTime = nil
                                     historyTasks.insert(task, at: 0)
                                     withAnimation(.linear) {
@@ -183,27 +189,9 @@ struct TasksView : View {
                                 .buttonStyle(BorderlessButtonStyle())
                                 
                             }.offset(x:2,y:-20)
-                        }.padding(.vertical, 15)
-//                            .contextMenu {
-//                                Button {
-//                                   //
-//                                } label: {
-//                                    HStack {
-//                                        Text("Edit")
-//                                        Image(systemName: "rectangle.and.pencil.and.ellipsis")
-//                                    }
-//                                }
-//                                Button(role: .destructive) {
-//                                    task
-//                                } label: {
-//                                    HStack {
-//                                        Text("Delete")
-//                                        Image(systemName:"trash")
-//                                    }
-//                                    
-//                                }
-//
-//                            }
+                        }
+                        .padding(.vertical, 15)
+                       
                     }
                     .onDelete(perform: {tasks.remove(atOffsets: $0)})
                     
@@ -232,16 +220,16 @@ struct TasksView : View {
 
 ////////////////////////////////////////////////////////////////////
 
-fileprivate struct Test : View {
-    @ObservedObject var sections = Sections(section: [TaskSection.init(imageLable: "apple.image", name: "test", sectionStyle: .blue)], tasks: [[]], historyTasks: [[]])
-    var body: some View {
-        TasksView(tasks: $sections.tasks[0], historyTasks: $sections.historyTasks[0], sectionName: $sections.section[0].name,colorStyle: .blue)
-    }
-}
-
-struct ContentViewPreviews: PreviewProvider {
-    static var previews: some View {
-        Test()
-           
-    }
-}
+//fileprivate struct Test : View {
+//    @ObservedObject var sections = Sections(section: [TaskSection.init(imageLable: "apple.image", name: "test", sectionStyle: .blue)], tasks: [[]], historyTasks: [[]])
+//    var body: some View {
+//        TasksView(tasks: $sections.tasks[0], historyTasks: $sections.historyTasks[0], sectionName: $sections.section[0].name,colorStyle: .blue)
+//    }
+//}
+//
+//struct ContentViewPreviews: PreviewProvider {
+//    static var previews: some View {
+//        Test()
+//
+//    }
+//}

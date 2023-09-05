@@ -105,7 +105,6 @@ struct SectionsView: View {
                             
                         }
                         .padding(3)
-                        //                        .buttonStyle(BorderlessButtonStyle())
                         .font(.largeTitle)
                         .foregroundColor(section.sectionStyle.locolToColor())
                         .contrast(2)
